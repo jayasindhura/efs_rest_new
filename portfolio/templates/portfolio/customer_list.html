@@ -1,0 +1,74 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<html lang="en">
+<body>
+
+<body>
+<style>
+
+        body {
+            background-color: beige;
+        }
+</style>
+
+  <header class="jumbotron my-4 table-responsive" style="background: white">
+      <p class="lead text-nowrap"><b>Eagle Financial Services, your Midwest Financial Services Partner</b></p>
+         </header>
+
+<div class="row"><br>
+
+    <h2 style="padding-left: 15Px"><u>Customer Information</u></h2>
+    </div>
+    <div>
+        <table class="table table-hover table-responsive-lg text-center">
+            <thead>
+            <tr bgcolor="white">
+                <th>Customer Number</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Primary Email</th>
+                <th>Cell Phone</th>
+                <th colspan="6">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for customer in customers %}
+                <tr bgcolor="white">
+                    <td data-title="Customer Number" id="hidden_row1" class="hidden_row">{{ customer.cust_number }}</td>
+                    <td data-title="Name" id="hidden_row2" class="hidden_row">{{ customer.name }}</td>
+                    <td data-title="Address" id="hidden_row3" class="hidden_row">{{ customer.address }}</td>
+                    <td data-title="City" id="hidden_row4" class="hidden_row">{{ customer.city }}</td>
+                    <td data-title="State" id="hidden_row5" class="hidden_row">{{ customer.state }}</td>
+                    <td data-title="Zip" id="hidden_row6" class="hidden_row">{{ customer.zipcode }}</td>
+                    <td data-title="Primary Email" id="hidden_row7" class="hidden_row">{{ customer.email }}</td>
+                    <td data-title="Cell Phone" id="hidden_row8" class="hidden_row">{{ customer.cell_phone }}</td>
+                    <td><a href="{% url 'portfolio:customer_edit' pk=customer.pk %}" class="btn btn-warning">Edit</a><td>
+                     <td><a href="{% url 'portfolio:customer_delete' pk=customer.pk %}"
+                           onclick="return confirm('Are you sure you want to delete?')"
+                           class="btn btn-danger">Delete</a>
+                    <td><a href="{% url 'portfolio:portfolio' pk=customer.pk %}"
+                           class="btn btn-primary">Portfolio</a>
+                    <td><a href="{% url 'portfolio:portfolio_summary_pdf' pk=customer.pk %}"
+                           class="btn btn-primary">Download Portfolio PDF Report</a>
+
+                    <td><a href="{% url 'portfolio:portfolio_summary_pdf_email' pk=customer.pk %}" type="button" class="btn btn-primary">Send PDF to Email</a>
+
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
+
+{% endblock %}
